@@ -1,5 +1,3 @@
-using System;
-
 namespace AzureMongoDB.Models
 {
     public class ErrorViewModel

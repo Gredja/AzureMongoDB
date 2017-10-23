@@ -1,32 +1,43 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDB.Models;
+using AzureMongoDB.Services.Interfaces;
 
 namespace AzureMongoDB.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IMongoDbRepository _repository;
+
+
+        public HomeController(IMongoDbRepository repository)
         {
-            return View();
+            _repository = repository;
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
 
-            return View();
+        public async Task<IActionResult> Index()
+        {
+            var debtors = await _repository.GetAllDebtors();
+
+            return View(debtors);
         }
 
-        public IActionResult Contact()
+        public async Task<IActionResult> AddDebtor()
         {
-            ViewData["Message"] = "Your contact page.";
+            var debtors = await _repository.GetAllDebtors();
+            var id = Convert.ToInt32(debtors.Max(x => x.Id)) + 1;
 
-            return View();
+            await _repository.AddDebtor(new Debtor() { Id = id.ToString(), Name = DateTime.Now.ToString(CultureInfo.InvariantCulture) });
+
+            return RedirectToAction("Index");
+
         }
 
         public IActionResult Error()
