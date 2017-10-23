@@ -2,7 +2,7 @@
 
 namespace AzureMongoDB.Models
 {
-    public class User
+    public class Debtor
     {
         [BsonId]
         public string Id { get; set; }
