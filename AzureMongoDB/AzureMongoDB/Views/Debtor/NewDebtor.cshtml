@@ -1,0 +1,13 @@
+﻿@model Debtor
+
+<table>
+    <tr>
+        <td>
+            @Html.TextBoxFor(x => x.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Add debtor", "AddDebtor", Model)
+        </td>
+    </tr>
+</table>
+

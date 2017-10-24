@@ -1,14 +1,6 @@
-﻿@model IEnumerable<Debtor>
-
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
 
-@{
-    foreach (var debtor in Model)
-    {
-        <p>@debtor.Name</p>
-    }
-}
 
-@Html.ActionLink("Add debtor", "AddDebtor");

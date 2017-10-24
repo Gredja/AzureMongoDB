@@ -13,7 +13,6 @@ namespace AzureMongoDB.Controllers
     {
         private readonly IDebtorDbRepository _repository;
 
-
         public HomeController(IDebtorDbRepository repository)
         {
             _repository = repository;
@@ -26,21 +25,6 @@ namespace AzureMongoDB.Controllers
             return View(debtors);
         }
 
-        public async Task<IActionResult> AddDebtor()
-        {
-            await _repository.AddOneDebtor(new Debtor
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = DateTime.Now.ToString(CultureInfo.InvariantCulture)
-            });
 
-            return RedirectToAction("Index");
-
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
