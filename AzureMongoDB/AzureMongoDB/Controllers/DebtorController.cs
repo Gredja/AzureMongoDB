@@ -24,12 +24,12 @@ namespace AzureMongoDB.Controllers
             return View(debtors);
         }
 
-        public async Task<IActionResult> AddDebtor()
+        public async Task<IActionResult> AddDebtor(Debtor debtor)
         {
             await _repository.AddOneDebtor(new Debtor
             {
                 Id = Guid.NewGuid().ToString(),
-                Name = DateTime.Now.ToString(CultureInfo.InvariantCulture)
+                Name = debtor.Name
             });
 
             return RedirectToAction("Index");

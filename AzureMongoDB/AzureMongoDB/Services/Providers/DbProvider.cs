@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureMongoDB.Services.Providers
 {
-    public static class MongoDbProvider
+    public static class DebtorDbProvider
     {
-        public static void AddMongoDbService(this IServiceCollection services)
+        public static void AddDebtorDbService(this IServiceCollection services)
         {
             services.AddTransient<IDebtorDbRepository, DebtorDbRepository>();
         }

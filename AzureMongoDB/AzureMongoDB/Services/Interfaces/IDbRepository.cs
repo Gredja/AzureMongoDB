@@ -5,11 +5,14 @@ using MongoDB.Driver;
 
 namespace AzureMongoDB.Services.Interfaces
 {
-    public interface IDebtorDbRepository
+    public interface IDbRepository
     {
         Task<IEnumerable<Debtor>> GetAllDebtors();
         Task AddOneDebtor(Debtor debtor);
         Task<DeleteResult> DeleteDebtor(Debtor debtor);
         Task<UpdateResult> UpdateDebtor(Debtor debtor);
+        Task<IEnumerable<Credit>> GetAllCredits();
+        Task<IEnumerable<Credit>> GetCreditsByDebtor(Debtor debtor);
+        Task<DeleteResult> DeleteCredit(Credit credit);
     }
 }

@@ -14,7 +14,7 @@ namespace AzureMongoDB.Services
         }
 
         public IMongoCollection<Debtor> Debtors => _database.GetCollection<Debtor>("Debtor");
+
+        public IMongoCollection<Credit> Credits => _database.GetCollection<Credit>("Credit");
     }
-
-
 }
