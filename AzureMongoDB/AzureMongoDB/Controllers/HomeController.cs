@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -13,14 +11,13 @@ namespace AzureMongoDB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IMongoDbRepository _repository;
+        private readonly IDebtorDbRepository _repository;
 
 
-        public HomeController(IMongoDbRepository repository)
+        public HomeController(IDebtorDbRepository repository)
         {
             _repository = repository;
         }
-
 
         public async Task<IActionResult> Index()
         {
@@ -31,10 +28,11 @@ namespace AzureMongoDB.Controllers
 
         public async Task<IActionResult> AddDebtor()
         {
-            var debtors = await _repository.GetAllDebtors();
-            var id = Convert.ToInt32(debtors.Max(x => x.Id)) + 1;
-
-            await _repository.AddDebtor(new Debtor() { Id = id.ToString(), Name = DateTime.Now.ToString(CultureInfo.InvariantCulture) });
+            await _repository.AddOneDebtor(new Debtor
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = DateTime.Now.ToString(CultureInfo.InvariantCulture)
+            });
 
             return RedirectToAction("Index");
 

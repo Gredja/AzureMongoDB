@@ -7,7 +7,7 @@ namespace AzureMongoDB.Services.Providers
     {
         public static void AddMongoDbService(this IServiceCollection services)
         {
-            services.AddTransient<IMongoDbRepository, MongoDbRepository>();
+            services.AddTransient<IDebtorDbRepository, DebtorDbRepository>();
         }
     }
 }
