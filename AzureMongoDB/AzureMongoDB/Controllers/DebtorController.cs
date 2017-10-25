@@ -18,18 +18,23 @@ namespace AzureMongoDB.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var debtors = await _repository.GetAllDebtors();
+             var debtors = await _repository.GetAllDebtors();
 
             return View(debtors);
         }
 
+        [HttpPost]
         public async Task<IActionResult> AddDebtor(Debtor debtor)
         {
-            await _repository.AddOneDebtor(new Debtor
+            if (ModelState.IsValid)
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = debtor.Name
-            });
+                await _repository.AddOneDebtor(new Debtor
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = debtor.Name
+                });
+              
+            }
 
             return RedirectToAction("Index");
         }
@@ -37,8 +42,9 @@ namespace AzureMongoDB.Controllers
         public async Task<IActionResult> DeleteDebtor(Debtor debtor)
         {
             await _repository.DeleteDebtor(debtor);
+            var debtors = await _repository.GetAllDebtors();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", debtors);
         }
 
         public IActionResult Error()

@@ -1,3 +1,15 @@
-﻿@Html.Partial("DebtorsList")
+﻿<table>
 
-@Html.Partial("NewDebtor", new Debtor())
+    <tr>
+        <td>
+            @Html.Partial("DebtorsList")
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.Partial("NewDebtor", new Debtor())
+        </td>
+    </tr>
+
+</table>

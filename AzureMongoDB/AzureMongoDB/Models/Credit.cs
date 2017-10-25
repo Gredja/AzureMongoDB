@@ -11,6 +11,7 @@ namespace AzureMongoDB.Models
         public string Currency { get; set; }
         public int Amount { get; set; }
         public DateTime ExpirationDate { get; set; }
+        public bool Disabled { get; set; }
         public string Comment { get; set; }
     }
 }

@@ -42,9 +42,10 @@ namespace AzureMongoDB.Services
             return await _context.Debtors.UpdateOneAsync(filter, update);
         }
 
-        public async Task<IEnumerable<Credit>> GetAllCredits()
+        public async Task<IEnumerable<Credit>> GetAllActiveCredits()
         {
-            return await _context.Credits.Find(_ => true).ToListAsync();
+            var filter = Builders<Credit>.Filter.Eq("Disabled", false);
+            return await _context.Credits.Find(filter).ToListAsync();
         }
 
         public async Task<IEnumerable<Credit>> GetCreditsByDebtor(Debtor debtor)
@@ -57,6 +58,19 @@ namespace AzureMongoDB.Services
         {
             var filter = Builders<Credit>.Filter.Eq("Id", credit.Id);
             return await _context.Credits.DeleteOneAsync(filter);
+        }
+
+        public async Task AddCredit(Credit credit)
+        {
+            await _context.Credits.InsertOneAsync(credit);
+        }
+
+        public async Task<UpdateResult> UpdateCredit(Credit credit)
+        {
+            var filter = Builders<Credit>.Filter.Eq(s => s.Id, credit.Id);
+            var update = Builders<Credit>.Update.Set(s => s, credit).CurrentDate(s => s);
+
+            return await _context.Credits.UpdateOneAsync(filter, update);
         }
 
         private async Task<DeleteResult> DeleteCreditsByDebtor(Debtor debtor)

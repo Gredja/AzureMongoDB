@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using AzureMongoDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDB.Services.Interfaces;
+using AzureMongoDB.ViewModels;
 
 namespace AzureMongoDB.Controllers
 {
@@ -16,10 +18,17 @@ namespace AzureMongoDB.Controllers
         public async Task<IActionResult> Index()
         {
             var debtors = await _repository.GetAllDebtors();
+            var credits = await _repository.GetAllActiveCredits();
 
-            return View(debtors);
+            var viewModel = new IndexViewModel { Credits = credits, Debtors = debtors, NewCredit = new Credit() };
+
+            return View(viewModel);
         }
 
+        public async Task<IActionResult> AddCredit(IndexViewModel viewModel)
+        {
+            return RedirectToAction("Index");
+        }
 
     }
 }

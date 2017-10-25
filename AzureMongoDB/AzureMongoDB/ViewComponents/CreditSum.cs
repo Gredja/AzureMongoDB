@@ -15,7 +15,7 @@ namespace AzureMongoDB.ViewComponents
 
         public string Invoke()
         {
-            var credits = _dbRepository.GetAllCredits().Result;
+            var credits = _dbRepository.GetAllActiveCredits().Result;
             return $"Вам должны {credits.Sum(x => x.Amount)}";
         }
     }

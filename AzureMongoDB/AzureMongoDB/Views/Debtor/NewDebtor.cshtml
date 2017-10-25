@@ -1,13 +1,17 @@
-﻿@model Debtor
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model Debtor
 
-<table>
-    <tr>
-        <td>
-            @Html.TextBoxFor(x => x.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Add debtor", "AddDebtor", Model)
-        </td>
-    </tr>
-</table>
+@using (Html.BeginForm("AddDebtor", "Debtor", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.TextBoxFor(x => x.Name)
+            </td>
+            <td>
+                <input type="submit" value="Add debtor" />
+            </td>
+        </tr>
+    </table>
+}
 
