@@ -3,10 +3,54 @@
     ViewData["Title"] = "Home Page";
 }
 
-@Html.DropDownList("Name", Model.Debtors.Select(x => new SelectListItem { Value = x.Id, Text = x.Name }))
-
-
 @await Component.InvokeAsync("CreditSum")
+
+<p />
+
+@using (Html.BeginForm("AddCredit", "Home", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.Label("Должник: ")
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.NewCredit.DebtorId, Model.Debtors.Select(x => new SelectListItem { Value = x.Id, Text = x.Name }))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Сумма: ")
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.NewCredit.Amount)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Сумма: ")
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.NewCredit.Currency, new SelectList(
+                    new List<Object>{
+                        new { value = 0 , text = "USD"  },
+                        new { value = 1 , text = "EUR" },
+                        new { value = 2 , text = "BYN"}
+                    },
+                    "value",
+                    "text",
+                    0))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Add credit" />
+            </td>
+        </tr>
+    </table>
+}
+
+
 
 
 

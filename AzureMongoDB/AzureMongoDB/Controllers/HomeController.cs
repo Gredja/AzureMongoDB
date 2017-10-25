@@ -25,8 +25,13 @@ namespace AzureMongoDB.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> AddCredit(IndexViewModel viewModel)
+        public async Task<IActionResult> AddCredit(Credit credit)
         {
+            if (ModelState.IsValid)
+            {
+                await _repository.AddCredit(credit);
+            }
+
             return RedirectToAction("Index");
         }
 
