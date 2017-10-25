@@ -11,13 +11,13 @@ namespace AzureMongoDB.Models
 
         public string DebtorId { get; set; }
 
-        [Required]
         public string Currency { get; set; }
 
         [Required]
-        public int Amount { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
+        public int Amount { get; set; } = 1;
 
-        public DateTime ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; set; } = DateTime.Now;
 
         public bool Disabled { get; set; }
 

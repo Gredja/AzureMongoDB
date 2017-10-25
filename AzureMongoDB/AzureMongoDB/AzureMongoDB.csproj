@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bootstrap.v3.Datetimepicker.CSS" Version="4.17.45" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.18.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.4.4" />

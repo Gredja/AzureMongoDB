@@ -15,7 +15,15 @@
                 @Html.Label("Должник: ")
             </td>
             <td>
-                @Html.DropDownListFor(x => x.NewCredit.DebtorId, Model.Debtors.Select(x => new SelectListItem { Value = x.Id, Text = x.Name }))
+                @Html.DropDownListFor(x => x.NewCredit.DebtorId, Model.Debtors.Select(x => new SelectListItem { Value = x.Id, Text = x.Name , Selected = true}))
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Валюта: ")
+            </td>
+            <td>
+                @Html.DropDownListFor(x => x.NewCredit.Currency, new SelectList(new List<Object> { new { text = "USD" }, new { text = "EUR" }, new { text = "BYN" } }, "text", "text", "USD"))
             </td>
         </tr>
         <tr>
@@ -28,18 +36,21 @@
         </tr>
         <tr>
             <td>
-                @Html.Label("Сумма: ")
+                @Html.Label("Дата возврата: ")
             </td>
             <td>
-                @Html.DropDownListFor(x => x.NewCredit.Currency, new SelectList(
-                    new List<Object>{
-                        new { value = 0 , text = "USD"  },
-                        new { value = 1 , text = "EUR" },
-                        new { value = 2 , text = "BYN"}
-                    },
-                    "value",
-                    "text",
-                    0))
+                <div class="form-group input-group-sm">
+                    @Html.LabelFor(model => model.NewCredit.ExpirationDate)
+                    @Html.TextBoxFor(model => model.NewCredit.ExpirationDate, new { @class = "form-control", placeholder = "Enter Drop-off date here..." })
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Коментарий: ")
+            </td>
+            <td>
+                @Html.TextBoxFor(x => x.NewCredit.Comment)
             </td>
         </tr>
         <tr>
