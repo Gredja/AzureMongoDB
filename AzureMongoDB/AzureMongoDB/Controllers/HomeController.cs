@@ -1,19 +1,14 @@
-﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AzureMongoDB.Models;
 using AzureMongoDB.Services.Interfaces;
 
 namespace AzureMongoDB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IDebtorDbRepository _repository;
+        private readonly IDbRepository _repository;
 
-        public HomeController(IDebtorDbRepository repository)
+        public HomeController(IDbRepository repository)
         {
             _repository = repository;
         }

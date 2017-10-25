@@ -3,11 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureMongoDB.Services.Providers
 {
-    public static class DebtorDbProvider
+    public static class DbProvider
     {
-        public static void AddDebtorDbService(this IServiceCollection services)
+        public static void AddDbService(this IServiceCollection services)
         {
-            services.AddTransient<IDebtorDbRepository, DebtorDbRepository>();
+            services.AddTransient<IDbRepository, DbRepository>();
         }
     }
 }

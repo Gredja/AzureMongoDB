@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using AzureMongoDB.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,17 +6,16 @@ namespace AzureMongoDB.ViewComponents
 {
     public class CreditSum : ViewComponent
     {
-        private readonly ICreditDbRepository _creditRepository;
+        private readonly IDbRepository _dbRepository;
 
-        public CreditSum(ICreditDbRepository creditRepository)
+        public CreditSum(IDbRepository dbRepository)
         {
-            _creditRepository = creditRepository;
+            _dbRepository = dbRepository;
         }
 
-        public async Task<string> Invoke()
+        public string Invoke()
         {
-            var credits = await _creditRepository.GetAllCredits();
-
+            var credits = _dbRepository.GetAllCredits().Result;
             return $"Вам должны {credits.Sum(x => x.Amount)}";
         }
     }

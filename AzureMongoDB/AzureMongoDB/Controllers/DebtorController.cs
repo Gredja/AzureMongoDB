@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.Threading.Tasks;
 using AzureMongoDB.Models;
 using AzureMongoDB.Services.Interfaces;
@@ -10,9 +9,9 @@ namespace AzureMongoDB.Controllers
 {
     public class DebtorController : Controller
     {
-        private readonly IDebtorDbRepository _repository;
+        private readonly IDbRepository _repository;
 
-        public DebtorController(IDebtorDbRepository repository)
+        public DebtorController(IDbRepository repository)
         {
             _repository = repository;
         }
