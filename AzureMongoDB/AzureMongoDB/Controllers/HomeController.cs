@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AzureMongoDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDB.Services.Interfaces;
@@ -25,11 +26,13 @@ namespace AzureMongoDB.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> AddCredit(Credit credit)
+        [HttpPost]
+        public async Task<IActionResult> AddCredit(IndexViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                await _repository.AddCredit(credit);
+                viewModel.NewCredit.Id = Guid.NewGuid().ToString();
+                await _repository.AddCredit(viewModel.NewCredit);
             }
 
             return RedirectToAction("Index");
