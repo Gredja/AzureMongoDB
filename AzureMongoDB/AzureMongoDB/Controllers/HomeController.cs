@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AzureMongoDB.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +22,12 @@ namespace AzureMongoDB.Controllers
         {
             var debtors = await _repository.GetAllDebtors();
             var credits = await _repository.GetAllCredits(true);
+
+            if (credits != null && debtors != null)
+            {
+                var a = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
+                    (credit, debtor) => new {credit, debtor.Name});
+            }
 
             var viewModel = new IndexViewModel { Credits = credits, Debtors = debtors, NewCredit = new Credit() };
 
