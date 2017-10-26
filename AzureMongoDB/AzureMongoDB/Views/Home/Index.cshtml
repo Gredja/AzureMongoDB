@@ -7,6 +7,17 @@
 
 <p />
 
+@using (Html.BeginForm("GetCurrency", "Home", FormMethod.Post))
+{
+    @Html.DropDownListFor(model => Model.SelectedCurrency, new SelectList(new[] { "All" }.Concat(Enum.GetNames(typeof(Currency)))), new { onchange = @"form.submit();" })
+}
+
+<table>
+    @Html.Partial("GetCredits", Model.Credits)
+</table>
+
+<p />
+
 @using (Html.BeginForm("AddCredit", "Home", FormMethod.Post))
 {
     <table>
@@ -15,7 +26,7 @@
                 @Html.Label("Должник: ")
             </td>
             <td>
-                @Html.DropDownListFor(x => x.NewCredit.DebtorId, Model.Debtors.Select(x => new SelectListItem { Value = x.Id, Text = x.Name , Selected = true}))
+                @Html.DropDownListFor(x => x.NewCredit.DebtorId, Model.Debtors.Select(x => new SelectListItem { Value = x.Id, Text = x.Name, Selected = true }))
             </td>
         </tr>
         <tr>
@@ -23,7 +34,7 @@
                 @Html.Label("Валюта: ")
             </td>
             <td>
-                @Html.DropDownListFor(x => x.NewCredit.Currency, new SelectList(new List<Object> { new { text = "USD" }, new { text = "EUR" }, new { text = "BYN" } }, "text", "text", "USD"))
+                @Html.DropDownListFor(x => x.NewCredit.Currency, new SelectList(Enum.GetNames(typeof(Currency))))
             </td>
         </tr>
         <tr>

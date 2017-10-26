@@ -38,5 +38,9 @@ namespace AzureMongoDB.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult GetCurrency(IndexViewModel viewModel)
+        {
+            return null;
+        }
     }
 }

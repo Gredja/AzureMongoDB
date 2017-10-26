@@ -1,1 +1,9 @@
-﻿
+﻿@model IEnumerable<Credit>
+
+@foreach (var credit in Model)
+{
+    <tr>
+        <td>@credit.Amount</td>
+        <td>@credit.DebtorId</td>
+    </tr>
+}
