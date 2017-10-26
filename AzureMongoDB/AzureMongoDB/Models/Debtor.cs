@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace AzureMongoDB.Models
 {
@@ -6,6 +7,7 @@ namespace AzureMongoDB.Models
     {
         [BsonId]
         public string Id { get; set; }
+        [Required]
         public string Name { get; set; }
     }
 }

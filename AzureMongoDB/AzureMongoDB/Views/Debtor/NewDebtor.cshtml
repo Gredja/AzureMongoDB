@@ -1,0 +1,16 @@
+﻿@model Debtor
+
+@using (Html.BeginForm("AddDebtor", "Debtor", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>
+                @Html.TextBoxFor(x => x.Name)
+            </td>
+            <td>
+                <input type="submit" value="Add debtor" />
+            </td>
+        </tr>
+    </table>
+}
+

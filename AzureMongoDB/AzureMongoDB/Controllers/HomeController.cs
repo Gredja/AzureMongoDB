@@ -1,48 +1,42 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using AzureMongoDB.Models;
+using Microsoft.AspNetCore.Mvc;
 using AzureMongoDB.Services.Interfaces;
+using AzureMongoDB.ViewModels;
 
 namespace AzureMongoDB.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IMongoDbRepository _repository;
+        private readonly IDbRepository _repository;
 
-
-        public HomeController(IMongoDbRepository repository)
+        public HomeController(IDbRepository repository)
         {
             _repository = repository;
         }
 
-
         public async Task<IActionResult> Index()
         {
             var debtors = await _repository.GetAllDebtors();
+            var credits = await _repository.GetAllActiveCredits();
 
-            return View(debtors);
+            var viewModel = new IndexViewModel { Credits = credits, Debtors = debtors, NewCredit = new Credit() };
+
+            return View(viewModel);
         }
 
-        public async Task<IActionResult> AddDebtor()
+        [HttpPost]
+        public async Task<IActionResult> AddCredit(IndexViewModel viewModel)
         {
-            var debtors = await _repository.GetAllDebtors();
-            var id = Convert.ToInt32(debtors.Max(x => x.Id)) + 1;
-
-            await _repository.AddDebtor(new Debtor() { Id = id.ToString(), Name = DateTime.Now.ToString(CultureInfo.InvariantCulture) });
+            if (ModelState.IsValid)
+            {
+                viewModel.NewCredit.Id = Guid.NewGuid().ToString();
+                await _repository.AddCredit(viewModel.NewCredit);
+            }
 
             return RedirectToAction("Index");
-
         }
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
