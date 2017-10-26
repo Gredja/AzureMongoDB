@@ -19,7 +19,7 @@ namespace AzureMongoDB.Models
 
         public DateTime ExpirationDate { get; set; } = DateTime.Now;
 
-        public bool Disabled { get; set; }
+        public bool Active { get; set; } = true;
 
         public string Comment { get; set; }
     }

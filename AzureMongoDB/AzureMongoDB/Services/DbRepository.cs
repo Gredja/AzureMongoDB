@@ -42,9 +42,9 @@ namespace AzureMongoDB.Services
             return await _context.Debtors.UpdateOneAsync(filter, update);
         }
 
-        public async Task<IEnumerable<Credit>> GetAllActiveCredits()
+        public async Task<IEnumerable<Credit>> GetAllCredits(bool active)
         {
-            var filter = Builders<Credit>.Filter.Eq("Disabled", false);
+            var filter = Builders<Credit>.Filter.Eq("Active", active);
             return await _context.Credits.Find(filter).ToListAsync();
         }
 

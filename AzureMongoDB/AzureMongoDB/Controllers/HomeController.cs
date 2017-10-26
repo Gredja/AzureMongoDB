@@ -19,7 +19,7 @@ namespace AzureMongoDB.Controllers
         public async Task<IActionResult> Index()
         {
             var debtors = await _repository.GetAllDebtors();
-            var credits = await _repository.GetAllActiveCredits();
+            var credits = await _repository.GetAllCredits(true);
 
             var viewModel = new IndexViewModel { Credits = credits, Debtors = debtors, NewCredit = new Credit() };
 
