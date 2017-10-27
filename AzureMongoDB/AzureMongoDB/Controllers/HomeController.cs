@@ -65,5 +65,12 @@ namespace AzureMongoDB.Controllers
         {
             return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index", currency = viewModel.SelectedCurrency }));
         }
+
+        public async Task<IActionResult> Repay(Credit credit)
+        {
+            await _repository.RepayCredit(credit);
+
+            return RedirectToAction("Index");
+        }
     }
 }

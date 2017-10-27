@@ -46,11 +46,5 @@ namespace AzureMongoDB.Controllers
 
             return RedirectToAction("Index", debtors);
         }
-
-        public IActionResult Repay(Credit credit)
-        {
-            
-        }
-
     }
 }

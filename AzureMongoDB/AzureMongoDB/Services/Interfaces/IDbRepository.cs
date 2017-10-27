@@ -16,5 +16,6 @@ namespace AzureMongoDB.Services.Interfaces
         Task<DeleteResult> DeleteCredit(Credit credit);
         Task AddCredit(Credit credit);
         Task<UpdateResult> UpdateCredit(Credit credit);
+        Task<UpdateResult> RepayCredit(Credit credit);
     }
 }

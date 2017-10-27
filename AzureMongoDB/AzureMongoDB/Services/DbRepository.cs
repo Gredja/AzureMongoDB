@@ -73,6 +73,14 @@ namespace AzureMongoDB.Services
             return await _context.Credits.UpdateOneAsync(filter, update);
         }
 
+        public async Task<UpdateResult> RepayCredit(Credit credit)
+        {
+            var filter = Builders<Credit>.Filter.Eq(s => s.Id, credit.Id);
+            var update = Builders<Credit>.Update.Set(s => s.Active, false).CurrentDate(s => s.Active);
+
+            return await _context.Credits.UpdateOneAsync(filter, update);
+        }
+
         private async Task<DeleteResult> DeleteCreditsByDebtor(Debtor debtor)
         {
             var filter = Builders<Credit>.Filter.Eq("DebtorId", debtor.Id);
