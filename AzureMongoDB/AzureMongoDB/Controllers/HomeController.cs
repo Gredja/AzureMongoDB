@@ -23,13 +23,16 @@ namespace AzureMongoDB.Controllers
             var debtors = await _repository.GetAllDebtors();
             var credits = await _repository.GetAllCredits(true);
 
-            if (credits != null && debtors != null)
-            {
-                var a = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
-                    (credit, debtor) => new {credit, debtor.Name});
-            }
+            var creditPlusDebtorName = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
+                (credit, debtor) => new CreditPlusDebtorName {Credit = credit, DebtorName = debtor.Name});
 
-            var viewModel = new IndexViewModel { Credits = credits, Debtors = debtors, NewCredit = new Credit() };
+            var viewModel = new IndexViewModel
+            {
+                Credits = credits,
+                Debtors = debtors,
+                CreditPlusDebtorNames = creditPlusDebtorName,
+                NewCredit = new Credit()
+            };
 
             return View(viewModel);
         }

@@ -13,7 +13,15 @@
 }
 
 <table>
-    @Html.Partial("GetCredits", Model.Credits)
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Валюта</th>
+        <th>Сумма</th>
+        <th>Коментарий</th>
+    </tr>
+    </thead>
+    @Html.Partial("GetCredits", Model.CreditPlusDebtorNames)
 </table>
 
 <p />

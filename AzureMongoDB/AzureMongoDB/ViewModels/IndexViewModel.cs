@@ -9,6 +9,7 @@ namespace AzureMongoDB.ViewModels
     {
         public IEnumerable<Debtor> Debtors { get; set; }
         public IEnumerable<Credit> Credits { get; set; }
+        public IEnumerable<CreditPlusDebtorName> CreditPlusDebtorNames { get; set; }
         public Credit NewCredit { get; set; }
         public string SelectedCurrency { get; set; } = "All";
     }
