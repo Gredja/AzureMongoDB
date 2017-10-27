@@ -47,9 +47,10 @@ namespace AzureMongoDB.Controllers
             return RedirectToAction("Index", debtors);
         }
 
-        public IActionResult Error()
+        public IActionResult Repay(Credit credit)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            
         }
+
     }
 }

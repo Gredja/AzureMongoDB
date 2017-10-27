@@ -6,6 +6,7 @@ using AzureMongoDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using AzureMongoDB.Services.Interfaces;
 using AzureMongoDB.ViewModels;
+using Microsoft.AspNetCore.Routing;
 
 namespace AzureMongoDB.Controllers
 {
@@ -18,19 +19,30 @@ namespace AzureMongoDB.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string currency = "")
         {
             var debtors = await _repository.GetAllDebtors();
             var credits = await _repository.GetAllCredits(true);
 
-            var creditPlusDebtorName = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
-                (credit, debtor) => new CreditPlusDebtorName {Credit = credit, DebtorName = debtor.Name});
+            IEnumerable<CreditPlusDebtorName> creditPlusDebtorNames = new List<CreditPlusDebtorName>();
+
+            if (!string.IsNullOrEmpty(currency))
+            {
+                creditPlusDebtorNames = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
+                        (credit, debtor) => new CreditPlusDebtorName { Credit = credit, DebtorName = debtor.Name })
+                    .Where(arg => arg.Credit.Currency == currency);
+            }
+            else
+            {
+                creditPlusDebtorNames = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
+                    (credit, debtor) => new CreditPlusDebtorName { Credit = credit, DebtorName = debtor.Name });
+            }
 
             var viewModel = new IndexViewModel
             {
                 Credits = credits,
                 Debtors = debtors,
-                CreditPlusDebtorNames = creditPlusDebtorName,
+                CreditPlusDebtorNames = creditPlusDebtorNames,
                 NewCredit = new Credit()
             };
 
@@ -51,7 +63,7 @@ namespace AzureMongoDB.Controllers
 
         public IActionResult GetCurrency(IndexViewModel viewModel)
         {
-            return null;
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Home", action = "Index", currency = viewModel.SelectedCurrency }));
         }
     }
 }

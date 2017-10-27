@@ -3,9 +3,10 @@
 @foreach (var creditPlusDebtorName in Model)
 {
     <tr>
-        <td>@creditPlusDebtorName.DebtorName</td>
+        <td>@creditPlusDebtorName.DebtorName</td> 
         <td>@creditPlusDebtorName.Credit.Currency</td>
         <td>@creditPlusDebtorName.Credit.Amount</td>
         <td>@creditPlusDebtorName.Credit.Comment</td>
+        <td>@Html.ActionLink("Delete", "DeleteDebtor", creditPlusDebtorName);</td>
     </tr>
 }
