@@ -24,18 +24,18 @@ namespace AzureMongoDB.Controllers
             var debtors = await _repository.GetAllDebtors();
             var credits = await _repository.GetAllCredits(true);
 
-            IEnumerable<CreditPlusDebtorName> creditPlusDebtorNames = new List<CreditPlusDebtorName>();
+            IEnumerable<MoneyPlusDebtorName> creditPlusDebtorNames = new List<MoneyPlusDebtorName>();
 
             if (!string.IsNullOrEmpty(currency))
             {
                 creditPlusDebtorNames = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
-                        (credit, debtor) => new CreditPlusDebtorName { Credit = credit, DebtorName = debtor.Name })
+                        (credit, debtor) => new MoneyPlusDebtorName { Credit = credit, DebtorName = debtor.Name })
                     .Where(arg => arg.Credit.Currency == currency);
             }
             else
             {
                 creditPlusDebtorNames = credits.Join(debtors, arg => arg.DebtorId, arg => arg.Id,
-                    (credit, debtor) => new CreditPlusDebtorName { Credit = credit, DebtorName = debtor.Name });
+                    (credit, debtor) => new MoneyPlusDebtorName { Credit = credit, DebtorName = debtor.Name });
             }
 
             var viewModel = new IndexViewModel

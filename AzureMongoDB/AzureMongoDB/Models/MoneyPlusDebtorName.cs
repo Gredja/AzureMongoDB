@@ -1,7 +1,7 @@
 ﻿
 namespace AzureMongoDB.Models
 {
-    public class CreditPlusDebtorName
+    public class MoneyPlusDebtorName
     {
         public Credit Credit { get; set; }
         public string DebtorName { get; set; }
