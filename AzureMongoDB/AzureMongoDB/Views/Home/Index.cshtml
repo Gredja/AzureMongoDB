@@ -10,7 +10,7 @@
 
 @using (Html.BeginForm("GetCurrency", "Home", FormMethod.Post))
 {
-    @Html.DropDownListFor(model => Model.SelectedCurrency, new SelectList(new[] { "All" }.Concat(Enum.GetNames(typeof(Currency)))), new { onchange = @"form.submit();" })
+    @Html.DropDownListFor(model => Model.SelectedCurrency, new SelectList(new[] { "All" }.Concat(Enum.GetNames(typeof(Currency))), Model.SelectedCurrency), new { onchange = @"form.submit();" })
 }
 
 <table>
